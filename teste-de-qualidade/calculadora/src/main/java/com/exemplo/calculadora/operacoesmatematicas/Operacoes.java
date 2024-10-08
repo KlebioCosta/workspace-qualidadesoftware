@@ -4,30 +4,31 @@ public class Operacoes extends ValidarLimitesPermitidos implements Operadores {
 
     @Override
     public int adicao(int a, int b) {
-        validarLimitesInteiros(a, b);
+        validarLimitePermitido(a, b);
         return a + b;
     }
 
 
     @Override
     public int subtracao(int a, int b) {
-        validarLimitesInteiros(a, b);
+        validarLimitePermitido(a, b);
         return a - b;
     }
 
 
     @Override
     public int multiplicacao(int a, int b) {
-        validarLimitesInteiros(a, b);
+        validarLimitePermitido(a, b);
         return a * b;
     }
 
     @Override
     public double divisao(double a, double b) {
+        validarLimitePermitido((int) a, (int) b);
         if(b == 0) {
             throw new IllegalArgumentException ("Divisão por zero não é possivel. ");
         }
-        return a / b;
+       return a / b;
     }
 
     @Override
@@ -40,13 +41,14 @@ public class Operacoes extends ValidarLimitesPermitidos implements Operadores {
         }
         return a * fatorial(a - 1);
     }
+
     @Override
-    public int potencia(int base, int expoente) {
-        if(expoente < 0) {
-            throw new IllegalArgumentException("Expoente não pode ser negativo. ");
-        }
+    public double potencia(long base, long expoente) {
         if(expoente == 0) {
            return 1;
+        }
+        if(expoente < 0) {
+            return 1.0/ potencia(base, -expoente);
         }
         return base * potencia(base, expoente - 1);
     }
@@ -54,12 +56,12 @@ public class Operacoes extends ValidarLimitesPermitidos implements Operadores {
 
 
     @Override
-    protected String mensagemErroMaximo() {
+    protected String mensagemErroValorMaximo() {
         return "O valor ultrapassa o máximo permitido.";
     }
 
     @Override
-    protected String mensagemErroMinimo() {
+    protected String mensagemErroValorMinimo() {
         return "O valor ultrapassa o mínimo permitido.";
     }
 }

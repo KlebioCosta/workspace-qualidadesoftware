@@ -6,6 +6,6 @@ public interface Operadores {
     int multiplicacao(int a, int b)throws IllegalArgumentException;
     double divisao(double a, double b) throws IllegalArgumentException;
     int fatorial(int a) throws IllegalArgumentException;
-    int potencia(int base, int expoente);
+    double potencia(long base, long expoente);
 
 }

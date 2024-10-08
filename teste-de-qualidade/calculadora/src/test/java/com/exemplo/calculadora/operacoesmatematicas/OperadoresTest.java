@@ -139,21 +139,22 @@ class OperadoresTest {
         }
         @Test
         @DisplayName("O número excede o valor mínimo permitido. ")
-        void testMultiplicacaoNumerosGrandesNegativos() {
+        void testMultiplicacao_NumerosGrandesNegativos() {
             assertThrows(IllegalArgumentException.class, () -> {
                 calculadora.multiplicacao(Integer.MIN_VALUE, -1);
             });
         }
 
     }
+
     @Nested
-    @DisplayName("Testes de Divisão")
+    @DisplayName("Testes de Divisão ")
     class Divisao {
 
         @Test
         @DisplayName("A divisão com dividendo e divisor positivo retorna valor correto. ")
         void testDivisao_NumerosPositivos() {
-            assertEquals(1, calculadora.divisao(numeroPositivoDoube, numeroPositivoDoube));
+            assertEquals(1, calculadora.divisao(numeroPositivoDoube, numeroPositivoDoube), 0.001);
         }
         @Test
         @DisplayName("A divisão com dividendo positivo e divisor negativo retorna valor correto.  ")
@@ -182,14 +183,68 @@ class OperadoresTest {
                 calculadora.divisao(numeroPositivoDoube, numeroZero);
             });
         }
+        @Test
+        @DisplayName("O número excede o valor máximo permitido. ")
+        void testDivisao_NumerosGrandesPermitidos() {
+            assertThrows(IllegalArgumentException.class, () -> {
+                calculadora.divisao(Integer.MAX_VALUE, +1);
+            });
+        }
+        @Test
+        @DisplayName("O número excede o valor mínimo permitido. ")
+        void testDivisao_NumerosGrandesNegativos() {
+            assertThrows(IllegalArgumentException.class, () -> {
+                calculadora.divisao(Integer.MIN_VALUE, -1);
+            });
+        }
 
     }
 
-    @Test
-    void fatorial() {
+    @Nested
+    @DisplayName("Testes de Fatorial ")
+    class Fatorial {
+        @Test
+        @DisplayName("Fatorial não definido para números negativos. ")
+        void testFatorial_NumeroNegativo() {
+            assertThrows(IllegalArgumentException.class, () -> {
+               calculadora.fatorial(numeroNegativoInteiro);
+            });
+        }
+        @Test
+        @DisplayName("Fatorial de zero retorna o valor correto")
+        void testFatorial_Zero() {
+            assertEquals(1, calculadora.fatorial(numeroZero));
+        }
+        @Test
+        @DisplayName("Fatorial de número positivo retorna o valor correto. ")
+        void testFatorial_NumerosPositivos() {
+            assertEquals(39916800, calculadora.fatorial(numeroPositivoInteiro));
+        }
     }
 
-    @Test
-    void potencia() {
+
+    @Nested
+    @DisplayName("Testes de Potência")
+    class Potencia {
+        @Test
+        @DisplayName("Potência com expoente Zero retorna o valor coreto. ")
+        void testPotencia_ExpoenteZero() {
+            assertEquals(1, calculadora.potencia(numeroPositivoInteiro, numeroZero));
+        }
+        @Test
+        @DisplayName("Potência com base e expoente positivos retorna o valor correto. ")
+        void testPotencia_ValoresPositivos() {
+            assertEquals(285_311_670_611L, calculadora.potencia(numeroPositivoInteiro, numeroPositivoInteiro));
+        }
+        @Test
+        @DisplayName("Potencia com expoente negativo. ")
+        void testPotencia_ExpoenteNegativo() {
+            assertEquals(5.1315811823070673E-8, calculadora.potencia(numeroPositivoInteiro, numeroNegativoInteiro));
+        }
+        @Test
+        @DisplayName("Potencia com base e expoente negativo. ")
+        void testPotencia_BaseEExpoenteNegativo() {
+            assertEquals(-1.2142656789020123E-6, calculadora.potencia(numeroNegativoInteiro, numeroNegativoInteiro));
+        }
     }
 }
