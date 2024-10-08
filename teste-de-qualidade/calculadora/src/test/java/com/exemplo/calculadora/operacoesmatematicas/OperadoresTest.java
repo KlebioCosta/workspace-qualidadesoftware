@@ -1,10 +1,14 @@
 package com.exemplo.calculadora.operacoesmatematicas;
 
+import com.jayway.jsonpath.internal.function.numeric.Max;
+import com.jayway.jsonpath.internal.function.numeric.Min;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Integer.MIN_VALUE;
 import static org.junit.jupiter.api.Assertions.*;
 
 class OperadoresTest {
@@ -13,8 +17,8 @@ class OperadoresTest {
     private int numeroPositivoInteiro;
     private int numeroNegativoInteiro;
     private int numeroZero;
-    private double numeroPositivoDoube;
-    private double numeroNegativoDoube;
+    private double numeroPositivoDouble;
+    private double numeroNegativoDouble;
 
     @BeforeEach
     void setUp() {
@@ -22,8 +26,8 @@ class OperadoresTest {
         numeroPositivoInteiro = 11;
         numeroNegativoInteiro = -7;
         numeroZero = 0;
-        numeroPositivoDoube = 11.0;
-        numeroNegativoDoube = -7.0;
+        numeroPositivoDouble = 11.0;
+        numeroNegativoDouble = -7.0;
 
     }
 
@@ -55,17 +59,18 @@ class OperadoresTest {
         @DisplayName("O número excede o tamanho Máximo permitido. ")
         void testAdicao_NumerosGrandesPositivos() {
             assertThrows(IllegalArgumentException.class, () -> {
-                calculadora.adicao(Integer.MAX_VALUE, +1);
+                calculadora.adicao(MAX_VALUE, +1);
             });
         }
         @Test
         @DisplayName("O número negativo excede o tamanho Mínimo permitido. ")
         void testAdicao_NumerosGrandesNegativos() {
             assertThrows(IllegalArgumentException.class, () -> {
-                calculadora.adicao(Integer.MIN_VALUE, -1);
+                calculadora.adicao(MIN_VALUE, -1);
             });
         }
     }
+
     @Nested
     @DisplayName("Testes de Subtração ")
     class Subtracao {
@@ -77,12 +82,12 @@ class OperadoresTest {
         }
         @Test
         @DisplayName("A subtração de um número positivo e um número negativo retorna o valor correto. ")
-        void testSubtraca_NumerosPsitovosENegativos() {
+        void testSubtracao_NumerosPsitovosENegativos() {
             assertEquals(18, calculadora.subtracao(numeroPositivoInteiro, numeroNegativoInteiro));
         }
         @Test
         @DisplayName("A subtração de dois números negativos retorna o valor correto. ")
-        void testSubtraca_NumerosNegativos() {
+        void testSubtracao_NumerosNegativos() {
             assertEquals(0, calculadora.subtracao(numeroNegativoInteiro, numeroNegativoInteiro));
         }
         @Test
@@ -94,14 +99,14 @@ class OperadoresTest {
         @DisplayName("O número excede o limite Máximo permitido. ")
         void testSubtracao_NumerosGrandesPositivos() {
             assertThrows(IllegalArgumentException.class, () -> {
-                calculadora.subtracao(Integer.MAX_VALUE, +1);
+                calculadora.subtracao(MAX_VALUE, +1);
             });
         }
         @Test
         @DisplayName("O número excede o limite minimo permitido ")
         void testSubtracao_NumerosGrandesNegativos() {
             assertThrows(IllegalArgumentException.class, () -> {
-               calculadora.subtracao(Integer.MIN_VALUE, -1);
+               calculadora.subtracao(MIN_VALUE, -1);
             });
         }
     }
@@ -134,14 +139,14 @@ class OperadoresTest {
         @DisplayName("O número excede o valor máximo permitido. ")
         void testMultiplicacao_NumerosGrandesPermitidos() {
             assertThrows(IllegalArgumentException.class, () -> {
-                calculadora.multiplicacao(Integer.MAX_VALUE, +1);
+                calculadora.multiplicacao(MAX_VALUE, +1);
             });
         }
         @Test
         @DisplayName("O número excede o valor mínimo permitido. ")
         void testMultiplicacao_NumerosGrandesNegativos() {
             assertThrows(IllegalArgumentException.class, () -> {
-                calculadora.multiplicacao(Integer.MIN_VALUE, -1);
+                calculadora.multiplicacao(MIN_VALUE, -1);
             });
         }
 
@@ -154,47 +159,47 @@ class OperadoresTest {
         @Test
         @DisplayName("A divisão com dividendo e divisor positivo retorna valor correto. ")
         void testDivisao_NumerosPositivos() {
-            assertEquals(1, calculadora.divisao(numeroPositivoDoube, numeroPositivoDoube), 0.001);
+            assertEquals(1, calculadora.divisao(numeroPositivoDouble, numeroPositivoDouble), 0.001);
         }
         @Test
         @DisplayName("A divisão com dividendo positivo e divisor negativo retorna valor correto.  ")
         void testDivisao_NumeroPositivoENegativo() {
-            assertEquals(-1.571, calculadora.divisao(numeroPositivoDoube, numeroNegativoDoube), 0.001);
+            assertEquals(-1.571, calculadora.divisao(numeroPositivoDouble, numeroNegativoDouble), 0.001);
         }
         @Test
         @DisplayName("A divisão com dividendo negativo e Didivisor positivo retorna o valor correto. ")
         void testDivisao_NumeroNegativoEPositivo() {
-            assertEquals(-0.636, calculadora.divisao(numeroNegativoDoube, numeroPositivoDoube), 0.001);
+            assertEquals(-0.636, calculadora.divisao(numeroNegativoDouble, numeroPositivoDouble), 0.001);
         }
         @Test
         @DisplayName("A divisão com dividendo e divisor negativo retorna o valor correto. ")
         void testDivisao_NumerosNegativos() {
-            assertEquals(1, calculadora.divisao(numeroNegativoDoube, numeroNegativoDoube));
+            assertEquals(1, calculadora.divisao(numeroNegativoDouble, numeroNegativoDouble));
         }
         @Test
         @DisplayName("A divisão com dividendo Zero retorna Zero. ")
         void testDivisao_DividendoZero() {
-            assertEquals(0, calculadora.divisao(numeroZero, numeroPositivoDoube));
+            assertEquals(0, calculadora.divisao(numeroZero, numeroPositivoDouble));
         }
         @Test
         @DisplayName("A divisão por Zero não é possivel. ")
         void testDivisaoPorZero() {
             assertThrows(IllegalArgumentException.class, () -> {
-                calculadora.divisao(numeroPositivoDoube, numeroZero);
+                calculadora.divisao(numeroPositivoDouble, numeroZero);
             });
         }
         @Test
         @DisplayName("O número excede o valor máximo permitido. ")
         void testDivisao_NumerosGrandesPermitidos() {
             assertThrows(IllegalArgumentException.class, () -> {
-                calculadora.divisao(Integer.MAX_VALUE, +1);
+                calculadora.divisao(MAX_VALUE, +1);
             });
         }
         @Test
         @DisplayName("O número excede o valor mínimo permitido. ")
         void testDivisao_NumerosGrandesNegativos() {
             assertThrows(IllegalArgumentException.class, () -> {
-                calculadora.divisao(Integer.MIN_VALUE, -1);
+                calculadora.divisao(MIN_VALUE, -1);
             });
         }
 
@@ -211,9 +216,23 @@ class OperadoresTest {
             });
         }
         @Test
-        @DisplayName("Fatorial de zero retorna o valor correto")
+        @DisplayName("Fatorial de zero retorna o valor correto. ")
         void testFatorial_Zero() {
             assertEquals(1, calculadora.fatorial(numeroZero));
+        }
+        @Test
+        @DisplayName("Fatorial números grandes positivos. ")
+        void testFatorial_NumerosGrandesPsitovos() {
+            assertThrows(IllegalArgumentException.class, () -> {
+                calculadora.fatorial(MAX_VALUE + 1);
+            });
+        }
+        @Test
+        @DisplayName("Fatorial números grandes negativos. ")
+        void testFatorial_NumerosGrandesNegativos() {
+            assertThrows(IllegalArgumentException.class, () -> {
+                calculadora.fatorial(MIN_VALUE + 1);
+            });
         }
         @Test
         @DisplayName("Fatorial de número positivo retorna o valor correto. ")

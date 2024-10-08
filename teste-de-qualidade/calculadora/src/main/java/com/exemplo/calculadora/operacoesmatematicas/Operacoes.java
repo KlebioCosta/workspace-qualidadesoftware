@@ -1,5 +1,8 @@
 package com.exemplo.calculadora.operacoesmatematicas;
 
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Integer.MIN_VALUE;
+
 public class Operacoes extends ValidarLimitesPermitidos implements Operadores {
 
     @Override
@@ -35,6 +38,12 @@ public class Operacoes extends ValidarLimitesPermitidos implements Operadores {
     public int fatorial(int a) {
         if(a < 0) {
             throw new IllegalArgumentException("Fatorial negativo não peritido");
+        }
+        if(a > MAX_VALUE) {
+            throw new IllegalArgumentException("Valor excede o limite máximo permitido. ");
+        }
+        if (a > MIN_VALUE) {
+            throw new IllegalArgumentException("Valor excede o valor mínimo permitido. ");
         }
         if(a == 0) {
             return 1;
