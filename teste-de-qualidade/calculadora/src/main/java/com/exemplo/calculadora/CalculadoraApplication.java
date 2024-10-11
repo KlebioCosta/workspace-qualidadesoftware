@@ -51,7 +51,7 @@ public class CalculadoraApplication {
 					case 4:
 						double[] valoresDivisao = capturarNumerosDouble(sc, "Divisão");
 						double resultDivisao = operacoes.divisao(valoresDivisao[0], valoresDivisao[1]);
-						System.out.println("Resultado: " + resultDivisao);
+						System.out.printf("\nResultado: %.3f\n", resultDivisao);
 						break;
 					case 5:
 						System.out.println("Digite um valor para o fatorial: ");
