@@ -7,6 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigInteger;
+
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 import static org.junit.jupiter.api.Assertions.*;
@@ -218,7 +220,7 @@ class OperadoresTest {
         @Test
         @DisplayName("Fatorial de zero retorna o valor correto. ")
         void testFatorial_Zero() {
-            assertEquals(1, calculadora.fatorial(numeroZero));
+            assertEquals(BigInteger.ONE, calculadora.fatorial(numeroZero));
         }
         @Test
         @DisplayName("Fatorial números grandes positivos. ")
@@ -237,7 +239,7 @@ class OperadoresTest {
         @Test
         @DisplayName("Fatorial de número positivo retorna o valor correto. ")
         void testFatorial_NumerosPositivos() {
-            assertEquals(39916800, calculadora.fatorial(numeroPositivoInteiro));
+            assertEquals(BigInteger.valueOf(39916800), calculadora.fatorial(numeroPositivoInteiro));
         }
     }
 

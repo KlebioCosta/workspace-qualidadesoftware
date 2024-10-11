@@ -1,5 +1,7 @@
 package com.exemplo.calculadora.operacoesmatematicas;
 
+import java.math.BigInteger;
+
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 
@@ -35,20 +37,19 @@ public class Operacoes extends ValidarLimitesPermitidos implements Operadores {
     }
 
     @Override
-    public int fatorial(int a) {
+    public BigInteger fatorial(int a) {
         if(a < 0) {
             throw new IllegalArgumentException("Fatorial negativo não peritido");
         }
-        if(a > MAX_VALUE) {
-            throw new IllegalArgumentException("Valor excede o limite máximo permitido. ");
-        }
-        if (a > MIN_VALUE) {
-            throw new IllegalArgumentException("Valor excede o valor mínimo permitido. ");
-        }
+
         if(a == 0) {
-            return 1;
+            return BigInteger.ONE;
         }
-        return a * fatorial(a - 1);
+        BigInteger resultado = BigInteger.ONE;
+        for (int i = 1; i <= a; i++) {
+            resultado = resultado.multiply(BigInteger.valueOf(i));
+        }
+        return resultado;
     }
 
     @Override
